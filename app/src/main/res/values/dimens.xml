@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mainLayoutWidth">0dp</dimen>
+    <dimen name="mainLayoutHeight">0dp</dimen>
+    <dimen name="contentTextMargin">5dp</dimen>
+    <dimen name="contentImageHeight">200dp</dimen>
+    <dimen name="contentCardViewMargin">5dp</dimen>
+    <dimen name="contentCardView1Width">0dp</dimen>
+    <dimen name="contentCardView1Height">0dp</dimen>
+    <dimen name="contentCardView1Margin">5dp</dimen>
+</resources>
