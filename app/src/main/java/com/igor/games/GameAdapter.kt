@@ -54,29 +54,37 @@ class GameAdapter(private val listener: Listener) : RecyclerView.Adapter<GameAda
                 .build()
         }
 
+        holder.binding.gameItemImageId.tag = game.thumbnail
+        holder.binding.gameItemImageId.setImageBitmap(null)
+
         val client = OkHttpClient()
 
         client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    e.printStackTrace()
-                }
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
 
-                override fun onResponse(call: Call, response: Response) {
-                    response.use {
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
 
-                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                        val bitmap = BitmapFactory.decodeStream(response.body!!.byteStream())
+                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                    val bitmap = BitmapFactory.decodeStream(response.body!!.byteStream())
+                    val thumb = holder.binding.gameItemImageId.tag as String
+
+                     if (thumb == game.thumbnail) {
                         holder.binding.gameItemImageId.post {
                             holder.binding.gameItemImageId.setImageBitmap(bitmap)
                         }
                     }
-
                 }
 
-            })
+            }
+        })
     }
+
 
     interface Listener {
         fun onClick(game: Game)
     }
 }
+

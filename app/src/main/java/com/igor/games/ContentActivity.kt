@@ -31,7 +31,8 @@ class ContentActivity : AppCompatActivity() {
         downloadImage(game)
     }
 
-    fun downloadImage(game: Game) {
+
+    private fun downloadImage(game: Game) {
         val request =  Request.Builder()
                 .url(game.thumbnail)
                 .build()

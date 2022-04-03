@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.WorkerThread
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide
 import com.igor.games.databinding.ActivityMainBinding
 import okhttp3.*
 import okio.IOException
@@ -55,7 +53,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.Listener {
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-                val jsonGames: JSONArray = JSONArray(response.body!!.string())
+                val jsonGames = JSONArray(response.body!!.string())
 
                 val games: ArrayList<Game> = ArrayList()
 
@@ -89,13 +87,13 @@ class MainActivity : AppCompatActivity(), GameAdapter.Listener {
                     )
                     games.add(game)
                 }
+                runOnUiThread(Runnable {
                 for (i in 0 until games.size) {
-                    runOnUiThread(Runnable {
                         adapter.addGame(games[i])
-                        adapter.notifyDataSetChanged()
-                    })
+                    }
+                    adapter.notifyDataSetChanged()
 
-                }
+                })
             }
 
         })

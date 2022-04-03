@@ -99,6 +99,6 @@
             android:id="@+id/game_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/contentImageHeight"
-            app:srcCompat="@drawable/wot" />
+            app:srcCompat="@android:drawable/editbox_dropdown_light_frame" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
