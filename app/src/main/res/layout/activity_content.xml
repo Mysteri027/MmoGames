@@ -95,10 +95,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/game_image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/contentImageHeight"
-            app:srcCompat="@android:drawable/editbox_dropdown_light_frame" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

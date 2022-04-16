@@ -11,9 +11,10 @@ import okhttp3.*
 import okio.IOException
 
 
-class GameAdapter(private val listener: Listener) : RecyclerView.Adapter<GameAdapter.GameHolder>() {
+class GameAdapter(private val listener: Listener,
+                  private val client: OkHttpClient) : RecyclerView.Adapter<GameAdapter.GameHolder>() {
 
-    private val gameList = ArrayList<Game>()
+    private var gameList = ArrayList<Game>()
 
     class GameHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -57,8 +58,6 @@ class GameAdapter(private val listener: Listener) : RecyclerView.Adapter<GameAda
         holder.binding.gameItemImageId.tag = game.thumbnail
         holder.binding.gameItemImageId.setImageBitmap(null)
 
-        val client = OkHttpClient()
-
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
@@ -68,6 +67,7 @@ class GameAdapter(private val listener: Listener) : RecyclerView.Adapter<GameAda
                 response.use {
 
                     if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
                     val bitmap = BitmapFactory.decodeStream(response.body!!.byteStream())
                     val thumb = holder.binding.gameItemImageId.tag as String
 

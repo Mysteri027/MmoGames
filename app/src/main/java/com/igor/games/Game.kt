@@ -1,9 +1,10 @@
 package com.igor.games
 
+import android.graphics.Bitmap
 import java.io.Serializable
 
 data class Game(
-    val id: Int,
+    val id: Long,
     val title: String,
     val thumbnail: String,
     val short_description: String,

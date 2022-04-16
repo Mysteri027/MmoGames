@@ -3,7 +3,6 @@ package com.igor.games
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bumptech.glide.Glide
 import com.igor.games.databinding.ActivityContentBinding
 import okhttp3.*
 import java.io.IOException
@@ -28,34 +27,5 @@ class ContentActivity : AppCompatActivity() {
             releaseDate.text = game.release_date
             platform.text = game.platform
         }
-        downloadImage(game)
-    }
-
-
-    private fun downloadImage(game: Game) {
-        val request =  Request.Builder()
-                .url(game.thumbnail)
-                .build()
-
-        val client = OkHttpClient()
-
-        client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    e.printStackTrace()
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    response.use {
-
-                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                        val bitmap = BitmapFactory.decodeStream(response.body!!.byteStream())
-                            binding.gameImage.post {
-                            binding.gameImage.setImageBitmap(bitmap)
-                        }
-                    }
-
-                }
-
-        })
     }
 }
