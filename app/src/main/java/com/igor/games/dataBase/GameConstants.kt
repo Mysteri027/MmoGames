@@ -1,4 +1,4 @@
-package com.igor.games.DataBase
+package com.igor.games.dataBase
 
 object GameConstants {
     const val TABLE_NAME = "Game"
@@ -7,7 +7,7 @@ object GameConstants {
     const val THUMBNAIL = "thumbnail"
     const val SHORT_DESCRIPTION = "short_description"
     const val GAME_URL = "game_url"
-    const val KEY_IMAGE = "key_image"
+    private const val KEY_IMAGE = "key_image"
     const val GENRE = "genre"
     const val PLATFORM = "platform"
     const val PUBLISHER = "publisher"
@@ -15,7 +15,7 @@ object GameConstants {
     const val RELEASE_DATE = "release_date"
     const val PROFILE_URL = "profile_url"
 
-    const val DB_NAME = "GameDB.db"
+    //const val DB_NAME = "GameDB.db"
     const val DB_VERSION = 7
 
     const val SQL_CREATE_ENTRIES =

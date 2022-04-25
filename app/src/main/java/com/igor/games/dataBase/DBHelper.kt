@@ -1,4 +1,4 @@
-package com.igor.games.DataBase
+package com.igor.games.dataBase
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

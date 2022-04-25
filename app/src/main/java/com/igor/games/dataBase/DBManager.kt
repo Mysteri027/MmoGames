@@ -1,20 +1,18 @@
-package com.igor.games.DataBase
+package com.igor.games.dataBase
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.graphics.Bitmap
-import com.igor.games.DataBase.DbBitmapUtility.getImage
 import com.igor.games.Game
 
-class DBManager(private val context: Context) {
+class DBManager(context: Context) {
 
     private val dbHelper = DBHelper(context)
     private val sqlDataBase: SQLiteDatabase = dbHelper.writableDatabase
 
-    public fun insertToDB(game: Game) {
+    fun insertToDB(game: Game) {
 
         val values = ContentValues().apply {
             put(GameConstants.TITLE, game.title)
@@ -28,11 +26,11 @@ class DBManager(private val context: Context) {
             put(GameConstants.RELEASE_DATE, game.release_date)
             put(GameConstants.PROFILE_URL, game.profile_url)
         }
-        val newRowId = sqlDataBase.insert(GameConstants.TABLE_NAME, null, values)
+        sqlDataBase.insert(GameConstants.TABLE_NAME, null, values)
     }
 
     @SuppressLint("Range")
-    public fun readFromDB(): ArrayList<Game> {
+    fun readFromDB(): ArrayList<Game> {
         val games: ArrayList<Game> = ArrayList()
         val cursor: Cursor =
             sqlDataBase.query(GameConstants.TABLE_NAME,null,null,null,null,null,null)
@@ -67,12 +65,12 @@ class DBManager(private val context: Context) {
             }
         }
         if(!cursor.isClosed){
-            cursor.close();
+            cursor.close()
         }
         return games
     }
 
-    public fun closeDB() {
+    fun closeDB() {
         dbHelper.close()
     }
 }

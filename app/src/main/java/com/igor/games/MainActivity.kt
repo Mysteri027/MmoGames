@@ -5,13 +5,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import com.igor.games.DataBase.DBManager
+import com.igor.games.dataBase.DBManager
 import com.igor.games.databinding.ActivityMainBinding
 import okhttp3.*
 import okio.IOException
 import org.json.JSONArray
 import java.io.File
-
 
 class MainActivity : AppCompatActivity(), GameAdapter.Listener {
 
@@ -28,13 +27,13 @@ class MainActivity : AppCompatActivity(), GameAdapter.Listener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val httpCacheDirectory: File = File(applicationContext.cacheDir, "http-cache")
+        val httpCacheDirectory = File(applicationContext.cacheDir, "http-cache")
         val cacheSize = 300L * 1024 * 1024 // 300 MiB
         client = OkHttpClient.Builder()
-//        .cache(Cache(
-//            directory = httpCacheDirectory,
-//            maxSize = cacheSize // 10 MiB
-//        ))
+        .cache(Cache(
+            directory = httpCacheDirectory,
+            maxSize = cacheSize // 10 MiB
+        ))
         .build()
 
         val adapter = GameAdapter(this, client)
@@ -49,8 +48,10 @@ class MainActivity : AppCompatActivity(), GameAdapter.Listener {
     }
 
     private fun init(adapter: GameAdapter) {
-        binding.recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3)
-        binding.recyclerView.adapter = adapter
+        with (binding) {
+            recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3)
+            recyclerView.adapter = adapter
+        }
     }
 
     override fun onClick(game: Game) {
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.Listener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                games = dbManager!!.readFromDB()
+                games = dbManager.readFromDB()
 
                 runOnUiThread(Runnable {
                     for (i in 0 until games.size) {

@@ -1,4 +1,4 @@
-package com.igor.games.DataBase
+package com.igor.games.dataBase
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
